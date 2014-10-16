@@ -5,4 +5,8 @@ Those are the sample files for Blender-VR. In the future they may be hosted sepa
 
 Git is not a good system to work on binary files, so it's recommended to use the SVN protocol to interact with this repository instead.
 
-svn checkout https://github.com/BlenderVR/samples
+``svn checkout https://github.com/BlenderVR/samples/trunk``
+
+Or for an individual sample folder:
+
+``svn checkout https://github.com/BlenderVR/samples/trunk/simple``
