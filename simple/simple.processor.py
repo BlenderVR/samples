@@ -36,7 +36,7 @@
 import blendervr
 import os
 
-blendervr.processor.appendProcessor(os.path.join(blenderVR_root, 'samples', 'processors.py'))
+blendervr.processor.appendProcessor(os.path.join(blendervr.tools.getModulePath(), 'processors.py'))
 
 try_wait_user_name = False
 try_chooser = True
@@ -106,7 +106,7 @@ if blendervr.is_virtual_environment():
                 self._scene.objects['Sphere.Y'].visible = False
             else:
                 self._scene.objects['Sphere.Y'].visible = True
-                
+
         def buttons(self, info):
             try:
                 if (info['button'] == 0) and (info['state'] == 1):
@@ -165,7 +165,7 @@ else: # not VR screen => Console
 
         def __init__(self, console):
             global try_wait_user_name, try_chooser, try_console_arc_balls
-            super(Processor, self).__init__(console, ('designer', 'simple.ui'), head_navigator=True)
+            super(Processor, self).__init__(console, ('designer', 'simple.ui'), head_navigator = True)
 
             if hasattr(self, '_navigator'):
                 self._navigator.registerWidget(self._ui.HC_nav)
