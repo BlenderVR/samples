@@ -197,3 +197,6 @@ else: # not VR screen => Console
 
             if hasattr(self, '_navigator'):
                 self._navigator.registerWidget(self._ui.HC_Nav)
+
+        def useLoader(self):
+            return True

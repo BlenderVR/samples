@@ -209,3 +209,6 @@ else: # not VR screen => Console
                 self.getConsole().logger.debug('Received a reply for user name set !')
                 return
             super(Processor, self).receivedFromVirtualEnvironment(command, argument)
+
+        def useLoader(self):
+            return True

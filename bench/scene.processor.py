@@ -88,3 +88,6 @@ else: # not VR screen => Console
             if user_name:
                 self.sendToVirtualEnvironment('filename postfix', user_name)
                 self._ui.user_name.setEnabled(False)
+
+        def useLoader(self):
+            return True
