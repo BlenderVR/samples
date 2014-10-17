@@ -95,7 +95,7 @@ else: # not VR screen => Console
     class Processor(blendervr.processor.getProcessor()):
 
         def __init__(self, console):
-            super(Processor, self).__init__(console, ('Dalai', 'designer', 'walkthrough.ui'), head_navigator=True)
+            super(Processor, self).__init__(console, ('walkthrough', 'designer', 'walkthrough.ui'), head_navigator = True)
 
             if hasattr(self, '_navigator'):
                 self._navigator.registerWidget(self._ui.HC_Nav)
