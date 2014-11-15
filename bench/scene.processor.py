@@ -55,7 +55,7 @@ if blendervr.is_virtual_environment():
                 return
             super(Processor, self).receivedFromConsole(command, argument)
 
-else: # not VR screen => Console
+elif blendervr.is_console():
 
     import os
     from blendervr.tools.gui.qt import QtGui

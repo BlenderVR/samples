@@ -36,7 +36,7 @@
 import blendervr
 import os
 
-blendervr.processor.appendProcessor(os.path.join(blendervr.tools.getModulePath(), 'processors.py'))
+blendervr.processor.appendProcessor(os.path.join(blenderVR_root, 'samples', 'processors.py'))
 
 if blendervr.is_virtual_environment():
     import bge
@@ -52,6 +52,7 @@ if blendervr.is_virtual_environment():
                 self._navigator.setPositionFactors(1, 20.0, 1.0)
 
         def rum_a(self, info):
+            self.logger.debug(self._controller.actuators)
             if info['channel'][1] < 0.2:
                 self._controller.activate(self._controller.actuators['act_vor_Laufen'])
                 self._controller.activate(self._controller.actuators['vor_renn'])
@@ -85,12 +86,32 @@ if blendervr.is_virtual_environment():
                 self._controller.deactivate(self._controller.actuators['Laufen_Rechts'])
 
         def rum_b(self, info):
+            self.logger.debug(self._controller.actuators)
             if (info['button'] == 26) and (info['state'] == 1):
                 self._controller.activate(self._controller.actuators['act_Attack'])
             if (info['button'] == 23) and (info['state'] == 1):
                 self._controller.activate(self._controller.actuators['Jump'])
 
-else: # not VR screen => Console
+elif blendervr.is_creating_loader():
+    import bpy
+    
+    class Processor(blendervr.processor.getProcessor()):
+
+        def __init__(self, creator):
+            super(Processor, self).__init__(creator)
+
+        def process(self, controller):
+            #print(dir(bpy.data.objects['01_Player_box']))
+            #print(dir(bpy.data))
+            #for element in bpy.context.object.game.actuators:
+            #    print(element)
+            #print(element['act_vor_Laufen'])
+            #print(bpy.context.object.game.actuators['warte_pose'])
+            #print(bpy.ops.logic.view_all)
+            #bpy.ops.logic.controller_add(type='PYTHON', name=CONTROLLER, object=camera.name)
+            
+
+elif blendervr.is_console():
 
     class Processor(blendervr.processor.getProcessor()):
 

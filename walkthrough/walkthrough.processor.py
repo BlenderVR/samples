@@ -36,7 +36,7 @@
 import blendervr
 import os
 
-blendervr.processor.appendProcessor(os.path.join(blendervr.tools.getModulePath(), 'processors.py'))
+blendervr.processor.appendProcessor(os.path.join(blenderVR_root, 'samples', 'processors.py'))
 
 if blendervr.is_virtual_environment():
     import bge
@@ -90,7 +90,7 @@ if blendervr.is_virtual_environment():
             else:
                 self._rotation = mathutils.Vector([0, 0, 0])
 
-else: # not VR screen => Console
+elif blendervr.is_console():
 
     class Processor(blendervr.processor.getProcessor()):
 

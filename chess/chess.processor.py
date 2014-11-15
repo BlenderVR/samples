@@ -36,7 +36,7 @@
 import blendervr
 import os
 
-blendervr.processor.appendProcessor(os.path.join(blendervr.tools.getModulePath(), 'processors.py'))
+blendervr.processor.appendProcessor(os.path.join(blenderVR_root, 'samples', 'processors.py'))
 
 if blendervr.is_virtual_environment():
     import bge
@@ -186,7 +186,15 @@ if blendervr.is_virtual_environment():
             for id, obj in self._sound_objects.items():
                 obj['object'].start(True)
 
-else: # not VR screen => Console
+elif blendervr.is_creating_loader():
+    import bpy
+    
+    class Processor(blendervr.processor.getProcessor()):
+
+        def __init__(self, creator):
+            super(Processor, self).__init__(creator, laser = True)
+            
+elif blendervr.is_console():
 
     from PyQt4 import QtCore, QtGui, uic
     

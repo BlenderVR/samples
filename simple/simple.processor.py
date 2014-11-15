@@ -36,7 +36,7 @@
 import blendervr
 import os
 
-blendervr.processor.appendProcessor(os.path.join(blendervr.tools.getModulePath(), 'processors.py'))
+blendervr.processor.appendProcessor(os.path.join(blenderVR_root, 'samples', 'processors.py'))
 
 try_wait_user_name = False
 try_chooser = True
@@ -159,7 +159,7 @@ if blendervr.is_virtual_environment():
                 return
             super(Processor, self).receivedFromMaster(command, argument)
 
-else: # not VR screen => Console
+elif blendervr.is_console():
 
     class Processor(blendervr.processor.getProcessor()):
 

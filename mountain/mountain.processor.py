@@ -36,7 +36,7 @@
 import blendervr
 import os
 
-blendervr.processor.appendProcessor(os.path.join(blendervr.tools.getModulePath(), 'processors.py'))
+blendervr.processor.appendProcessor(os.path.join(blenderVR_root, 'samples', 'processors.py'))
 
 if blendervr.is_virtual_environment():
     import bge
@@ -63,12 +63,13 @@ if blendervr.is_virtual_environment():
             if (info['button'] == 3) and (info['state'] == 1):
                 self.blenderVR.quit("because user asked !")
 
-else: # not VR screen => Console
+elif blendervr.is_console():
 
     class Processor(blendervr.processor.getProcessor()):
 
         def __init__(self, console):
-            super(Processor, self).__init__(console, ('designer', 'mountain.ui'), head_navigator = True)
+            ui_path = os.path.join(blendervr.tools.getModulePath(), 'designer', 'mountain.ui')
+            super(Processor, self).__init__(console, ui_path, head_navigator = True)
 
             if hasattr(self, '_navigator'):
                 self._navigator.registerWidget(self._ui.HC_Nav)
