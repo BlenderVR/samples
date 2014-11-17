@@ -55,6 +55,15 @@ if blendervr.is_virtual_environment():
                 return
             super(Processor, self).receivedFromConsole(command, argument)
 
+elif blendervr.is_creating_loader():
+
+    import bpy
+    
+    class Processor(blendervr.processor.getProcessor()):
+
+        def __init__(self, creator):
+            super(Processor, self).__init__(creator)
+
 elif blendervr.is_console():
 
     import os

@@ -63,6 +63,15 @@ if blendervr.is_virtual_environment():
             if (info['button'] == 3) and (info['state'] == 1):
                 self.blenderVR.quit("because user asked !")
 
+elif blendervr.is_creating_loader():
+
+    import bpy
+    
+    class Processor(blendervr.processor.getProcessor()):
+
+        def __init__(self, creator):
+            super(Processor, self).__init__(creator)
+
 elif blendervr.is_console():
 
     class Processor(blendervr.processor.getProcessor()):

@@ -90,12 +90,22 @@ if blendervr.is_virtual_environment():
             else:
                 self._rotation = mathutils.Vector([0, 0, 0])
 
+elif blendervr.is_creating_loader():
+
+    import bpy
+    
+    class Processor(blendervr.processor.getProcessor()):
+
+        def __init__(self, creator):
+            super(Processor, self).__init__(creator)
+
 elif blendervr.is_console():
 
     class Processor(blendervr.processor.getProcessor()):
 
         def __init__(self, console):
-            super(Processor, self).__init__(console, ('designer', 'walkthrough.ui'), head_navigator = True)
+            ui_path = os.path.join(blendervr.tools.getModulePath(), 'designer', 'walkthrough.ui')
+            super(Processor, self).__init__(console, ui_path, head_navigator = True)
 
             if hasattr(self, '_navigator'):
                 self._navigator.registerWidget(self._ui.HC_Nav)

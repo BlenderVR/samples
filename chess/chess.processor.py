@@ -187,13 +187,14 @@ if blendervr.is_virtual_environment():
                 obj['object'].start(True)
 
 elif blendervr.is_creating_loader():
+
     import bpy
     
     class Processor(blendervr.processor.getProcessor()):
 
         def __init__(self, creator):
-            super(Processor, self).__init__(creator, laser = True)
-            
+            super(Processor, self).__init__(creator)
+
 elif blendervr.is_console():
 
     from PyQt4 import QtCore, QtGui, uic
@@ -201,7 +202,8 @@ elif blendervr.is_console():
     class Processor(blendervr.processor.getProcessor()):
 
         def __init__(self, console):
-            super(Processor, self).__init__(console, ('chess', 'designer', 'chess.ui'), head_navigator=True)
+            ui_path = os.path.join(blendervr.tools.getModulePath(), 'designer', 'chess.ui')
+            super(Processor, self).__init__(console, ui_path, head_navigator=True)
 
             if hasattr(self, '_navigator'):
                 self._navigator.registerWidget(self._ui.HC_Nav)

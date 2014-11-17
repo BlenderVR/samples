@@ -159,13 +159,23 @@ if blendervr.is_virtual_environment():
                 return
             super(Processor, self).receivedFromMaster(command, argument)
 
+elif blendervr.is_creating_loader():
+
+    import bpy
+    
+    class Processor(blendervr.processor.getProcessor()):
+
+        def __init__(self, creator):
+            super(Processor, self).__init__(creator)
+
 elif blendervr.is_console():
 
     class Processor(blendervr.processor.getProcessor()):
 
         def __init__(self, console):
             global try_wait_user_name, try_chooser, try_console_arc_balls
-            super(Processor, self).__init__(console, ('designer', 'simple.ui'), head_navigator = True)
+            ui_path = os.path.join(blendervr.tools.getModulePath(), 'designer', 'simple.ui')
+            super(Processor, self).__init__(console, ui_path, head_navigator = True)
 
             if hasattr(self, '_navigator'):
                 self._navigator.registerWidget(self._ui.HC_nav)
