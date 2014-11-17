@@ -106,10 +106,10 @@ elif blendervr.is_creating_loader():
             spinnen_armature_ob = bpy.data.objects.get('02_Spinnen Armature')
 
             if not player_box_ob :
-                self.logger.debug("Object: \"\" missing in the scene".format('01_Player_box'))
+                self.logger.debug("Object: \"{0}\" missing in the scene".format('01_Player_box'))
 
             if not spinnen_armature_ob:
-                self.logger.debug("Object: \"\" missing in the scene".format('02_Spinnen Armature'))
+                self.logger.debug("Object: \"{0}\" missing in the scene".format('02_Spinnen Armature'))
 
             player_box_names = {
                 'act_vor_Laufen',
