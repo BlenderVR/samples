@@ -92,24 +92,63 @@ if blendervr.is_virtual_environment():
             if (info['button'] == 23) and (info['state'] == 1):
                 self._controller.activate(self._controller.actuators['Jump'])
 
+
 elif blendervr.is_creating_loader():
     import bpy
-    
+
     class Processor(blendervr.processor.getProcessor()):
 
         def __init__(self, creator):
             super(Processor, self).__init__(creator)
 
         def process(self, controller):
-            #print(dir(bpy.data.objects['01_Player_box']))
-            #print(dir(bpy.data))
-            #for element in bpy.context.object.game.actuators:
-            #    print(element)
-            #print(element['act_vor_Laufen'])
-            #print(bpy.context.object.game.actuators['warte_pose'])
-            #print(bpy.ops.logic.view_all)
-            #bpy.ops.logic.controller_add(type='PYTHON', name=CONTROLLER, object=camera.name)
-            
+            player_box_ob = bpy.data.objects.get('01_Player_box')
+            spinnen_armature_ob = bpy.data.objects.get('02_Spinnen Armature')
+
+            if not player_box_ob :
+                self.logger.debug("Object: \"\" missing in the scene".format('01_Player_box'))
+
+            if not spinnen_armature_ob:
+                self.logger.debug("Object: \"\" missing in the scene".format('02_Spinnen Armature'))
+
+            player_box_names = {
+                'act_vor_Laufen',
+                'act_back_Laufen',
+                #'act_vor_Renn',
+                #'act_Back_Renn',
+                'act_Laufen_links',
+                'act_Laufen_rechts',
+                #'act_Renn_links',
+                #'act_Renn_rechts',
+                }
+
+            spinnen_armature_names = {
+                #'warte_pose',
+                #'vor_Lauf',
+                #'Back_Lauf',
+                'vor_renn',
+                'Back_renn',
+                #'Action',
+                'Laufen_Rechts',
+                'Laufen_Links',
+                #'Renn_Links',
+                #'Renn_Rechts',
+                #'Jump',
+                #'act_Attack',
+                #'act_die',
+                #'act_die_2',
+                }
+
+            actuators = player_box_ob.game.actuators
+            for name in player_box_names:
+                actuator = actuators.get(name)
+                controller.link(actuator=actuator)
+
+            actuators = spinnen_armature_ob.game.actuators
+            for name in spinnen_armature_names:
+                actuator = actuators.get(name)
+                controller.link(actuator=actuator)
+
 
 elif blendervr.is_console():
 
