@@ -133,8 +133,8 @@ elif blendervr.is_creating_loader():
                 'Laufen_Links',
                 #'Renn_Links',
                 #'Renn_Rechts',
-                #'Jump',
-                #'act_Attack',
+                'Jump',
+                'act_Attack',
                 #'act_die',
                 #'act_die_2',
                 }
