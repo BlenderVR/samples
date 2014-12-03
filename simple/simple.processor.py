@@ -36,7 +36,7 @@
 import blendervr
 import os
 
-blendervr.processor.appendProcessor(os.path.join(blenderVR_root, 'samples', 'processors.py'))
+blendervr.processor.appendProcessor(os.path.join(blendervr.tools.getRootPath(), 'samples', 'processors.py'))
 
 try_wait_user_name = False
 try_chooser = True
