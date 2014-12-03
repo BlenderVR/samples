@@ -9,4 +9,4 @@ Git is not a good system to work on binary files, so it's recommended to use the
 
 Or for an individual sample folder:
 
-``svn checkout https://github.com/BlenderVR/samples/trunk/simple``
+``svn checkout https://github.com/BlenderVR/samples/trunk/basic``
