@@ -5,3 +5,5 @@ __pycache__
 /*/designer/*.py
 /*/.*.vr.blend
 *.bgeconf
+*.blend1
+*.blend2
