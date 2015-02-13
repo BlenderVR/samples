@@ -1,0 +1,29 @@
+For this sample to work you need to add the following part to your XML configuration file.
+
+#########################################################################################
+<?xml version="1.0"?>
+<blenderVR>
+  (...)
+
+  <users>
+    <user name="user A"/>
+  </users>
+
+  <plugins>
+    <vrpn>
+      <floor x='0.0'/>
+      <tracker device="GTK" host="localhost">
+        <transformation>
+          <post_translation z="-1.6"/>
+          <post_rotation x="1.0" y="1.0" z="1.0" angle="`-2*math.pi/3`"/>
+          <pre_rotation x="1.0" y="1.0" z="1.0" angle="`2*math.pi/3`"/>
+        </transformation>
+        <sensor id="0" processor_method='user_position' users='user A'/>
+      </tracker>
+    </vrpn>
+  </plugins>
+</blenderVR>
+#########################################################################################
+
+This expect you to have a head tracker device named 'GTK' with at least one sensor running in a VRPN server.
+Change the name and id accordingly to your setup.
