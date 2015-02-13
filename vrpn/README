@@ -1,0 +1,18 @@
+For this sample to work you need to add the following part to your XML configuration file.
+
+#########################################################################################
+<?xml version="1.0"?>
+<blenderVR>
+  (...)
+
+  <plugins>
+    <vrpn>
+      <analog device="device0" host="localhost" processor_method="space_navigator_analog"/>
+      <button device="device0" host="localhost" processor_method="space_navigator_button"/>
+    </vrpn>
+  </plugins>
+</blenderVR>
+#########################################################################################
+
+This expect you to have a Space Navigator device running in a VRPN server.
+Change the name and id accordingly to your setup.

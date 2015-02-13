@@ -1,5 +1,4 @@
 import blendervr
-import os
 
 if blendervr.is_virtual_environment():
     import bge
@@ -16,6 +15,9 @@ if blendervr.is_virtual_environment():
                 self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
         def run(self):
+            """
+            Main loop routine, it runs a few times per frame.
+            """
             super(Processor, self).run()
 
             try:
@@ -30,7 +32,15 @@ if blendervr.is_virtual_environment():
             except Exception as err:
                 self.logger.error(err)
 
-        def spaceNavAnalog(self, info):
+        def space_navigator_analog(self, info):
+            """
+            Callback for a Space Navigator (3D Connexion)
+            Defined in the XML config file.
+
+            It is called everytime the analogic handle is used.
+
+            This function moves and rotates the Monkey.
+            """
             try:
                 #self.logger.info("Analog @ 3d connexion: {0}".format(info))
 
@@ -48,6 +58,7 @@ if blendervr.is_virtual_environment():
                 monkey.worldPosition[1] -= data['y']
                 monkey.worldPosition[2] -= data['z']
 
+                # use the commented out line below if you want to rotate all the axis of the Monkey
                 #rotation = Vector((data['tilt'], -data['yaw'], -data['roll']))
                 rotation = Vector((0, 0, -data['roll']))
                 factor = 0.2
@@ -57,7 +68,16 @@ if blendervr.is_virtual_environment():
             except Exception as err:
                 self.logger.error(err)
 
-        def spaceNavButton(self, info):
+        def space_navigator_button(self, info):
+            """
+            Callback for a Space Navigator (3D Connexion)
+            Defined in the XML config file.
+
+            It is called everytime a button in the Space
+            Navigator is clicked.
+
+            This function scales the Monkey up and down.
+            """
             try:
                 if info['button'] == 0:
                     if info['state'] == 1:
@@ -90,7 +110,6 @@ elif blendervr.is_creating_loader():
 elif blendervr.is_console():
     class Processor(blendervr.processor.getProcessor()):
         def __init__(self, console):
-            global try_wait_user_name, try_chooser, try_console_arc_balls
             super(Processor, self).__init__(console)
 
         def useLoader(self):
