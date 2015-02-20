@@ -1,0 +1,51 @@
+Requirements:
+
+(1) Occulus Rift (TM)
+(2) Python wrapper of OpenHMD - https://github.com/lubosz/python-rift
+
+For this sample to work you need to add the following part to your XML configuration file.
+
+#########################################################################################
+<?xml version="1.0"?>
+<blenderVR>
+  <starter hostname='localhost' blender='MY_BLENDER_PATH/blender'>
+    <config name='Occulus Rift'>occulus rift</config>
+  </starter>
+
+  <users>
+    <user name="user A"/>
+  </users>
+
+  (...)
+
+  <screens>
+    <screen name="occulus rift" computer="Any">
+      <display options="-f -s sidebyside">
+        <environment>DISPLAY=:0.0</environment>
+        <graphic_buffer user='user A'/>
+      </display>
+      <hmd>
+        <corner name="topRightCorner">1.0, 1.0, -1.0</corner>
+        <corner name="topLeftCorner">-1.0, 1.0, -1.0</corner>
+        <corner name="bottomRightCorner">1.0, -1.0, -1.0</corner>
+      </hmd>
+    </screen>
+  </screens>
+
+  <plugins>
+    <occulus_rift>
+      <library folder="MY_PATH_TO_OPENHMD_FOLDER/" />
+    </occulus_rift>
+  </plugins>
+</blenderVR>
+#########################################################################################
+
+The path specified in the library 'folder' attribute is supposed to have a 'game_engine_rift'
+from which the rift module can be imported (so we can access the PyRift class).
+
+In other words, we should be able to add the 'folder' to the sys.path and run:
+``
+from game_engine_rift.rift import PyRift
+``
+
+This setup can be mixed with other plugins and screens, naturally.
