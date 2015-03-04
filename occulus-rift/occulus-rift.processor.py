@@ -13,8 +13,6 @@ if blendervr.is_virtual_environment():
                 from blendervr.interactor.head_controlled_navigation import HCNav
 
                 self._navigator = HCNav(self, method=None, one_per_user=True)
-                self._navigator.setDefaultUser(
-                                        self.blenderVR.getUserByName('user A'))
                 self.registerInteractor(self._navigator)
                 self._navigator.setPositionFactors(1, 20.0, 1.0)
 
@@ -23,6 +21,8 @@ if blendervr.is_virtual_environment():
                 self._viewpoint = ViewPoint(self)
                 self._viewpoint.viewpointScale = 0.2
                 self.registerInteractor(self._viewpoint)
+
+            self._users = []
 
         def keyboardAndMouse(self, info):
             """
@@ -42,17 +42,17 @@ if blendervr.is_virtual_environment():
                     # Head Navigation Setup
                     elif info['key'] == ord('1'):
                         self.logger.info("Calibrating Navigation")
-                        for user in info['users']:
+                        for user in self._users:
                             self._navigator.update(self._navigator.CALIBRATE, user)
 
                     elif info['key'] == ord('2'):
                         self.logger.info("Start Navigation")
-                        for user in info['users']:
+                        for user in self._users:
                             self._navigator.update(self._navigator.TOGGLE, user)
 
                     elif info['key'] == ord('3'):
                         self.logger.info("Reset Navigation")
-                        self.reset(info['users'])
+                        self.reset(self._users)
 
                     elif info['key'] == ord('4'):
                         self.logger.info("Quitting")
@@ -90,8 +90,13 @@ if blendervr.is_virtual_environment():
             """
 
             try:
+                if not self._users:
+                    for user in info['users']:
+                        self._users.append(user)
+
                 for user in info['users']:
                     self._navigator.setHeadLocation(user, info)
+
             except Exception as err:
                 self.logger.log_traceback(err)
 
@@ -114,7 +119,6 @@ elif blendervr.is_console():
             from blendervr.interactor.head_controlled_navigation import HCNav
             self._navigator = HCNav(self)
             self.registerInteractor(self._navigator)
-
 
         def useLoader(self):
             return True
