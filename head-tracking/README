@@ -27,3 +27,10 @@ For this sample to work you need to add the following part to your XML configura
 
 This expect you to have a head tracker device named 'GTK' with at least one sensor running in a VRPN server.
 Change the name and id accordingly to your setup.
+
+In order to use the head-tracking you need to use the following keyboard commands:
+
+1 : Calibrating Navigation
+2 : Start Navigation
+3 : Reset Navigation
+4 : Quit
