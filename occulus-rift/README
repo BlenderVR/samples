@@ -18,13 +18,21 @@ For this sample to work you need to add the following part to your XML configura
 
   (...)
 
+  <computers>
+    <system>
+      (...)
+      <library path="MY_PATH_TO_OPENMHD_FOLDER" />
+    </system>
+    <computer name='Any' hostname='*' />
+  </computers>
+
   <screens>
     <screen name="occulus rift" computer="Any">
       <display options="-f -s sidebyside">
         <environment>DISPLAY=:0.0</environment>
         <graphic_buffer user='user A'/>
       </display>
-      <hmd>
+      <hmd model="occulus_rift">
         <corner name="topRightCorner">1.0, 1.0, -1.0</corner>
         <corner name="topLeftCorner">-1.0, 1.0, -1.0</corner>
         <corner name="bottomRightCorner">1.0, -1.0, -1.0</corner>
@@ -34,16 +42,16 @@ For this sample to work you need to add the following part to your XML configura
 
   <plugins>
     <occulus_rift>
-      <library folder="MY_PATH_TO_OPENHMD_FOLDER/" />
+      <user processor_method="user_position" computer='Any' viewer='user A' />
     </occulus_rift>
   </plugins>
 </blenderVR>
 #########################################################################################
 
-The path specified in the library 'folder' attribute is supposed to have a 'game_engine_rift'
+The path specified in the system library 'path' attribute is supposed to have a 'game_engine_rift'
 from which the rift module can be imported (so we can access the PyRift class).
 
-In other words, we should be able to add the 'folder' to the sys.path and run:
+In other words, we should be able to add the folder 'path' to the sys.path and run:
 ``
 from game_engine_rift.rift import PyRift
 ``
