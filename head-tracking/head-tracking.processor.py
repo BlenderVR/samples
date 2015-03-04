@@ -13,8 +13,8 @@ if blendervr.is_virtual_environment():
                 from blendervr.interactor.head_controlled_navigation import HCNav
 
                 self._navigator = HCNav(self, method=None, one_per_user=True)
-                self._navigator.setDefaultUser(
-                                        self.blenderVR.getUserByName('user A'))
+                self._user = self.blenderVR.getUserByName('user A')
+                self._navigator.setDefaultUser(self._user)
                 self.registerInteractor(self._navigator)
                 self._navigator.setPositionFactors(1, 20.0, 1.0)
 
@@ -42,17 +42,15 @@ if blendervr.is_virtual_environment():
                     # Head Navigation Setup
                     elif info['key'] == ord('1'):
                         self.logger.info("Calibrating Navigation")
-                        for user in info['users']:
-                            self._navigator.update(self._navigator.CALIBRATE, user)
+                        self._navigator.update(self._navigator.CALIBRATE, self._user)
 
                     elif info['key'] == ord('2'):
                         self.logger.info("Start Navigation")
-                        for user in info['users']:
-                            self._navigator.update(self._navigator.TOGGLE, user)
+                        self._navigator.update(self._navigator.TOGGLE, self._user)
 
                     elif info['key'] == ord('3'):
                         self.logger.info("Reset Navigation")
-                        self.reset(info['users'])
+                        self.reset()
 
                     elif info['key'] == ord('4'):
                         self.logger.info("Quitting")
@@ -66,7 +64,7 @@ if blendervr.is_virtual_environment():
 
             super(Processor, self).keyboardAndMouse(info)
 
-        def reset(self, users=None):
+        def reset(self):
             """
             Reset all the user position and orientations.
             A new calibration will be required.
@@ -74,12 +72,8 @@ if blendervr.is_virtual_environment():
             if not hasattr(self, '_navigator'):
                 return
 
-            if users is None:
-                users = list(self.blenderVR.getAllUsers().values())
-
-            for user in users:
-                self._navigator.update(self._navigator.RESET, user)
-                user.resetVehiclePosition()
+            self._navigator.update(self._navigator.RESET, self._user)
+            self._user.resetVehiclePosition()
 
         def user_position(self, info):
             """
@@ -88,26 +82,16 @@ if blendervr.is_virtual_environment():
 
             Callback defined in the XML config file to one of the VRPN tracker sensors
             """
+            super(Processor, self).user_position(info)
 
             try:
                 for user in info['users']:
-                    self._navigator.setHeadLocation(user, info)
+                    if user == self._user:
+                        self._navigator.setHeadLocation(user, info)
+
             except Exception as err:
                 self.logger.log_traceback(err)
 
-            super(Processor, self).user_position(info)
-
-        def user_position(self, info):
-            """
-            Callback for one of the sensors of a tracker device.
-            Defined in the XML config file.
-
-            Callback defined in the XML config file to one of the VRPN tracker sensors
-            """
-
-            super(Processor, self).user_position(info)
-            for user in info['users']:
-                self._navigator.setHeadLocation(user, info)
 
 
 elif blendervr.is_creating_loader():
@@ -129,4 +113,3 @@ elif blendervr.is_console():
 
         def useLoader(self):
             return True
-
