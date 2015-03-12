@@ -1,0 +1,74 @@
+Requirements:
+
+(1) Oculus DK 2
+https://www.oculus.com/dk2
+
+(2) JAVA SE
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+(3) OculusWS.jar from Blender-Java-Web-Sockets
+https://github.com/tltmedia/dk2-blender-java-web-sockets/raw/master/dist/oculusWS.jar
+
+For this sample to work you need to add the following part to your XML configuration file.
+
+#########################################################################################
+<?xml version="1.0"?>
+<blenderVR>
+  <starter hostname='localhost' blender='MY_BLENDER_PATH/blender'>
+    <config name='Oculus DK2'>oculus dk2</config>
+  </starter>
+
+  <users>
+    <user name="user A"/>
+  </users>
+
+  (...)
+
+  <computers>
+    <system>
+      (...)
+      <library path="BLENDERVR_PATH/venv/lib/python3.4/site-packages" />
+      <library path="BLENDERVR_PATH/venv/lib/python3.4/site-packages/websocket_client-0.18.0-py3.4.egg-info" />
+    </system>
+    <computer name='Any' hostname='*' />
+  </computers>
+
+  <screens>
+    <screen name="oculus dk2" computer="Any">
+      <display options="-f -s sidebyside">
+        <environment>DISPLAY=:0.0</environment>
+        <graphic_buffer buffer="left" user='user A' eye="left"/>
+        <graphic_buffer buffer="right" user='user A' eye="right"/>
+      </display>
+      <hmd model="oculus_dk2">
+        <left>
+          <corner name="topRightCorner">1.0, 1.0, -1.0</corner>
+          <corner name="topLeftCorner">-1.0, 1.0, -1.0</corner>
+          <corner name="bottomRightCorner">1.0, -1.0, -1.0</corner>
+        </left>
+        <right>
+          <corner name="topRightCorner">1.0, 1.0, -1.0</corner>
+          <corner name="topLeftCorner">-1.0, 1.0, -1.0</corner>
+          <corner name="bottomRightCorner">1.0, -1.0, -1.0</corner>
+        </right>
+      </hmd>
+    </screen>
+  </screens>
+
+  <plugins>
+    <oculus_dk2>
+      <user processor_method="user_position" computer='Any' viewer='user A' />
+    </oculus_dk2>
+  </plugins>
+</blenderVR>
+#########################################################################################
+
+The path specified in the system library 'path' attribute is part of your virtual environment
+it allows the system to access the websockets packaged already installed when you installed Blender-VR.
+The above example is OSX-specific, you need to adapt to Linux or Windows.
+
+This setup can be mixed with other plugins and screens, naturally.
+The processor_method attribute for the oculus_dk2 user is optional.
+
+In order to run this you also need to run the websocket server:
+$ java -jar oculusWS.jar
