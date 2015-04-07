@@ -9,8 +9,8 @@ if blendervr.is_virtual_environment():
         def __init__(self, parent):
             super(Processor, self).__init__(parent)
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
             self._monkey = bge.logic.getCurrentScene().objects['Monkey']
             self._is_scaling_up = False

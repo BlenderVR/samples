@@ -58,18 +58,18 @@ if blendervr.is_virtual_environment():
             self._laser.allowDisallowObjects(False, self._scene.objects['Ground'])
             self._laser.allowDisallowObjects(False, self._scene.objects['Edges'].children)
 
-            self._user = self.blenderVR.getUserByName('user A')
+            self._user = self.BlenderVR.getUserByName('user A')
 
             try:
-                god = self.blenderVR.getUserByName('god')
+                god = self.BlenderVR.getUserByName('god')
                 if god is not None:
                     god.setParent(self._scene.objects['Horse'])
                     self._viewpoint.viewpointScale = 0.01
             except:
                 pass
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
                 from blendervr.interactor import reset_objects
                 self._reset_objects = reset_objects.ResetObjects(self)
@@ -78,9 +78,9 @@ if blendervr.is_virtual_environment():
                 self._sound_objects = {}
 
         def start(self):
-            if self.blenderVR.isMaster():
+            if self.BlenderVR.isMaster():
                 try:
-                    self._OSC = self.blenderVR.getPlugin('osc')
+                    self._OSC = self.BlenderVR.getPlugin('osc')
                     self._OSC.getGlobal().start(True)
 
                     ambisonic_user = self._OSC.getUser('Ambisonic')

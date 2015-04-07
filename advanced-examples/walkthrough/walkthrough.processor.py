@@ -51,8 +51,8 @@ if blendervr.is_virtual_environment():
             if hasattr(self, '_navigator'):
                 self._navigator.setPositionFactors(1, 20.0, 1.0)
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
                 self._car = bge.logic.getCurrentScene().objects.get("carro_preto")
                 self._movement = mathutils.Vector([0, 0, 0])
@@ -66,7 +66,7 @@ if blendervr.is_virtual_environment():
             if (info['button'] == 2) and (info['state'] == 1):
                 self.reset(info['users'])
             if (info['button'] == 3) and (info['state'] == 1):
-                self.blenderVR.quit("because user asked !")
+                self.BlenderVR.quit("because user asked !")
 
         def run(self):
             self._car.applyMovement(self._movement, True)

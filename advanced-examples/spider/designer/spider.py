@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/AstrApple/WorkSpace/BlenderVR_Workspace/blenderVR_git/samples/spider/designer/spider.ui'
+# Form implementation generated from reading ui file '/Users/AstrApple/WorkSpace/BlenderVR_Workspace/BlenderVR_git/samples/spider/designer/spider.ui'
 #
 # Created: Sat Jan 31 09:33:53 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2

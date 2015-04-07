@@ -7,13 +7,13 @@ if blendervr.is_virtual_environment():
         def __init__(self, parent):
             super(Processor, self).__init__(parent)
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
                 from blendervr.interactor.head_controlled_navigation import HCNav
 
                 self._navigator = HCNav(self, method=None, one_per_user=True)
-                self._user = self.blenderVR.getUserByName('user A')
+                self._user = self.BlenderVR.getUserByName('user A')
                 self._navigator.setDefaultUser(self._user)
                 self.registerInteractor(self._navigator)
                 self._navigator.setPositionFactors(1, 20.0, 1.0)
@@ -34,7 +34,7 @@ if blendervr.is_virtual_environment():
 
                 if info['state'] == device.STATE_PRESS:
                     if info['key'] == ord('q'):
-                        self.blenderVR.quit("pressed 'q' key")
+                        self.BlenderVR.quit("pressed 'q' key")
 
                     elif info['key'] == ord('v'):
                         self._viewpoint.activation(not self._viewpoint.isActivated())
@@ -54,7 +54,7 @@ if blendervr.is_virtual_environment():
 
                     elif info['key'] == ord('4'):
                         self.logger.info("Quitting")
-                        self.blenderVR.quit("Because user asked!")
+                        self.BlenderVR.quit("Because user asked!")
 
             except (KeyError, SystemExit):
                 pass

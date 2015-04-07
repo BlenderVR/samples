@@ -1,12 +1,12 @@
 # Following the //samples/basic/basic.processor.py, this processor file illustrates some
-# usage of the general blenderVR API.
+# usage of the general BlenderVR API.
 
 import blendervr
 import os
 
 # This line 'imports' the processor.py in //blender-vr/samples/, used in the superconstructor
 # of herein defined Processor class. You're invited to adapt said processor.py to your own needs
-# to factorize blenderVR scenes. A processor method that you want to use in several of your scene
+# to factorize BlenderVR scenes. A processor method that you want to use in several of your scene
 # can be defined in //blender-vr/samples/processor.py to be called at will in your
 # blenderSceneName.processor.py scripts.
 blendervr.processor.appendProcessor(os.path.join(blendervr.tools.getRootPath(), 'samples', 'processors.py'))
@@ -33,18 +33,18 @@ if blendervr.is_virtual_environment():
             random.seed()
 
             if try_use_stream_between_master_and_slave:
-                self.blenderVR.addObjectToSynchronize(self, 'main processor')
+                self.BlenderVR.addObjectToSynchronize(self, 'main processor')
 
             if hasattr(self, '_navigator'):
                 self._navigator.setPositionFactors(1, 20.0, 1.0)
 
-            self._user = self.blenderVR.getUserByName('user A')
+            self._user = self.BlenderVR.getUserByName('user A')
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
             if try_wait_user_name:
-                self.blenderVR.pause('Waiting for the user name')
+                self.BlenderVR.pause('Waiting for the user name')
 
             if try_chooser:
                 from blendervr.interactor.object_chooser import Chooser
@@ -64,7 +64,7 @@ if blendervr.is_virtual_environment():
 
 # Commented this section as the pre_render method no longer exists in the
 # blender API, replaced by pre_draw only.
-# Worth reimplementing the feature "sphere visible" to new blenderVR?
+# Worth reimplementing the feature "sphere visible" to new BlenderVR?
 
             # self._scene = bge.logic.getCurrentScene()
             # self._scene.pre_render.append(self._pre_render)
@@ -96,14 +96,14 @@ if blendervr.is_virtual_environment():
             if (info['button'] == 2) and (info['state'] == 1):
                 self.reset(info['users'])
             if (info['button'] == 3) and (info['state'] == 1):
-                self.blenderVR.quit("because user asked !")
+                self.BlenderVR.quit("because user asked !")
 
         def receivedFromConsole(self, command, argument):
             global try_wait_user_name
             if command == 'user name':
                 if try_wait_user_name:
                     self.logger.debug('user name: ', argument)
-                    self.blenderVR.pause()
+                    self.BlenderVR.pause()
                     self.sendToConsole('reply user name')
             else:
                 super(Processor, self).receivedFromConsole(command, argument)

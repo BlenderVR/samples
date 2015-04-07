@@ -9,8 +9,8 @@ if blendervr.is_virtual_environment():
         def __init__(self, parent):
             super(Processor, self).__init__(parent)
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
             self._scene = bge.logic.getCurrentScene()
 
@@ -19,7 +19,7 @@ if blendervr.is_virtual_environment():
             try:
                 obj = self._scene.objects['Suzanne']
                 cam = self._scene.active_camera
-                user = self.blenderVR.getUserByName('user A')
+                user = self.BlenderVR.getUserByName('user A')
                 rot = Matrix.Rotation(radians(180),4,'Y')
                 trans = Matrix.Translation(Vector(3,0,0))
                 rot2 = Matrix.Rotation(radians(180),4,'Z')
@@ -33,13 +33,13 @@ if blendervr.is_virtual_environment():
             super(Processor, self).user_position(info)
 
         def space_navigator_analog_right(self, info):
-            user = self.blenderVR.getUserByName('user B')
+            user = self.BlenderVR.getUserByName('user B')
             self.space_navigator_analog(info, user)
             # try: self.space_navigator_analog(info, user)
             # except: self.logger.log_traceback(False)
 
         def space_navigator_analog_left(self, info):
-            user = self.blenderVR.getUserByName('user A')
+            user = self.BlenderVR.getUserByName('user A')
             self.space_navigator_analog(info, user)
 
 
@@ -91,10 +91,10 @@ if blendervr.is_virtual_environment():
 
         def start(self):
 
-            if self.blenderVR.isMaster():
+            if self.BlenderVR.isMaster():
                 try:
 
-                    self._OSC = self.blenderVR.getPlugin('osc')
+                    self._OSC = self.BlenderVR.getPlugin('osc')
 
                     # Define global parameters
                     self._OSC.getGlobal().start(True)
@@ -102,8 +102,8 @@ if blendervr.is_virtual_environment():
 
                     # get OSC users
 
-                    A_sound_user = self._OSC.getUser(self.blenderVR.getUserByName('user A'))
-                    B_sound_user = self._OSC.getUser(self.blenderVR.getUserByName('user B'))
+                    A_sound_user = self._OSC.getUser(self.BlenderVR.getUserByName('user A'))
+                    B_sound_user = self._OSC.getUser(self.BlenderVR.getUserByName('user B'))
                     A_sound_user.volume('%50')
                     B_sound_user.volume('%50')
 
@@ -154,9 +154,9 @@ if blendervr.is_virtual_environment():
 
         def quit(self):
             """
-            blenderVR Callback, called at run stop.
+            BlenderVR Callback, called at run stop.
             """
-            if self.blenderVR.isMaster():
+            if self.BlenderVR.isMaster():
                 try:
                     self._OSC.reset() # sends "/global reset" OSC msg
                     self.logger.debug("## Quit my Processor")
@@ -164,7 +164,7 @@ if blendervr.is_virtual_environment():
                     self.logger.log_traceback(False)
 
         # def run(self):
-        #     user = self.blenderVR.getUserByName('user B')
+        #     user = self.BlenderVR.getUserByName('user B')
         #     self.logger.debug(user.getVehiclePosition().inverted() * user.getPosition())
 
 elif blendervr.is_creating_loader():

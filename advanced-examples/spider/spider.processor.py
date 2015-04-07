@@ -47,8 +47,8 @@ if blendervr.is_virtual_environment():
             self._quit = 0
             self._controller = bge.logic.getCurrentController()
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
                 self._navigator.setPositionFactors(1, 20.0, 1.0)
 
         def rum_a(self, info):

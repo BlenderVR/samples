@@ -42,15 +42,15 @@ if blendervr.is_virtual_environment():
     class Processor(blendervr.processor.getProcessor()):
         def __init__(self, parent):
             super(Processor, self).__init__(parent)
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
-            self.blenderVR.pause('Waiting setting result file postfix')
+            self.BlenderVR.pause('Waiting setting result file postfix')
 
         def receivedFromConsole(self, command, argument):
             if command == 'filename postfix':
                 self.logger.info('filename postfix:', argument)
-                self.blenderVR.pause()
+                self.BlenderVR.pause()
                 bge.logic.filename_postfix = argument
                 return
             super(Processor, self).receivedFromConsole(command, argument)

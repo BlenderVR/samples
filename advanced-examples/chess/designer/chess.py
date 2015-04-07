@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/AstrApple/WorkSpace/BlenderVR_Workspace/blenderVR_git/samples/chess/designer/chess.ui'
+# Form implementation generated from reading ui file '/Users/AstrApple/WorkSpace/BlenderVR_Workspace/BlenderVR_git/samples/chess/designer/chess.ui'
 #
 # Created: Sat Jan 31 09:16:34 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2

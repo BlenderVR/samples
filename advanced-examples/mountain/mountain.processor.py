@@ -50,8 +50,8 @@ if blendervr.is_virtual_environment():
             if hasattr(self, '_navigator'):
                 self._navigator.setPositionFactors(1, 20.0, 1.0)
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
         def buttons(self, info):
             if (info['button'] == 0) and (info['state'] == 1):
@@ -61,7 +61,7 @@ if blendervr.is_virtual_environment():
             if (info['button'] == 2) and (info['state'] == 1):
                 self.reset(info['users'])
             if (info['button'] == 3) and (info['state'] == 1):
-                self.blenderVR.quit("because user asked !")
+                self.BlenderVR.quit("because user asked !")
 
 elif blendervr.is_creating_loader():
 

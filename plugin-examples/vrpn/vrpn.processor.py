@@ -11,8 +11,8 @@ if blendervr.is_virtual_environment():
         def __init__(self, parent):
             super(Processor, self).__init__(parent)
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
         def user_position_right(self, info):
             # self.logger.debug('RIGHT', info['users'][0].getName(), len(info['users']))

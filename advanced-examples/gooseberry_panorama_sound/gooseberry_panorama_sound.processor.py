@@ -16,20 +16,20 @@ if blendervr.is_virtual_environment():
         def __init__(self, parent):
             super(Processor, self).__init__(parent)
 
-            if self.blenderVR.isMaster():
-                self.blenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
+            if self.BlenderVR.isMaster():
+                self.BlenderVR.getSceneSynchronizer().getItem(bge.logic).activate(True, True)
 
             self._scene = bge.logic.getCurrentScene()
-            self._userA = self.blenderVR.getUserByName('user A')
-            self._userB = self.blenderVR.getUserByName('user B')
+            self._userA = self.BlenderVR.getUserByName('user A')
+            self._userB = self.BlenderVR.getUserByName('user B')
             self._sound_objects = {}
 
         def start(self):
 
-            if self.blenderVR.isMaster():
+            if self.BlenderVR.isMaster():
                 try:
 
-                    self._OSC = self.blenderVR.getPlugin('osc')
+                    self._OSC = self.BlenderVR.getPlugin('osc')
 
                     # Define global parameters
                     self._OSC.getGlobal().start(True)
@@ -216,9 +216,9 @@ if blendervr.is_virtual_environment():
 
         def quit(self):
             """
-            blenderVR Callback, called at run stop.
+            BlenderVR Callback, called at run stop.
             """
-            if self.blenderVR.isMaster():
+            if self.BlenderVR.isMaster():
                 try:
                     self._OSC.reset() # sends "/global reset" OSC msg
                     self.logger.debug("## Quit my Processor")
