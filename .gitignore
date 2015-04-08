@@ -2,8 +2,8 @@
 *.pyc
 .DS_Store
 __pycache__
-/*/designer/*.py
-/*/.*.vr.blend
+/*/*/designer/*.py
+/*/*/.*.vr.blend
 *.bgeconf
 *.blend1
 *.blend2
