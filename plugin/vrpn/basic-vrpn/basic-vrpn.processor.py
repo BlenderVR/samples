@@ -16,29 +16,18 @@ if blendervr.is_virtual_environment():
             self._is_scaling_up = False
             self._is_scaling_down = False
 
-        def run(self):
-            """
-            Main loop routine, it runs a few times per frame.
-            """
-            super(Processor, self).run()
-
-            try:
-                if self._is_scaling_up: self._monkey.localScale *= 1.05
-                elif self._is_scaling_down: self._monkey.localScale /= 1.05
-
-            except Exception as err:
-                self.logger.error(err)
-
         def space_navigator_analog(self, info):
             """
             Callback for a Space Navigator (3D Connexion)
-            Defined in the XML config file.
+            Must be defined (name-wise) in the XML configuration file.
 
             It is called everytime the analogic handle is used.
 
             This function moves and rotates the Monkey.
             """
+            self.logger.info("test")
             try:
+                self.logger.info("test2")
                 self.logger.info("Analog @ 3d connexion: {0}".format(info))
 
                 raw_data = info['channel']
@@ -69,30 +58,30 @@ if blendervr.is_virtual_environment():
         def space_navigator_button(self, info):
             """
             Callback for a Space Navigator (3D Connexion)
-            Defined in the XML config file.
+            Must be defined (name-wise) in the XML configuration file.
 
             It is called everytime a button in the Space
             Navigator is clicked.
 
-            This function scales the Monkey up and down.
+            This function changes Monkey's color and make it invisible.
             """
             self.logger.debug('Space Navigator Button Main')
             try:
                 if info['button'] == 0:
                     if info['state'] == 1:
                         self.logger.info("1st button clicked @ Space Navigator (3D Connexion)")
-                        self._is_scaling_down = True
+                        self._monkey.visible = False
                     else:
                         self.logger.info("1st button released @ Space Navigator (3D Connexion)")
-                        self._is_scaling_down = False
+                        self._monkey.visible = True
 
                 elif info['button'] == 1:
                     if info['state'] == 1:
                         self.logger.info("2nd button clicked @ Space Navigator (3D Connexion)")
-                        self._is_scaling_up = True
+                        self._monkey.color = (1,0,0,1)
                     else:
                         self.logger.info("2nd button released @ Space Navigator (3D Connexion)")
-                        self._is_scaling_up = False
+                        self._monkey.color = (0,1,0,1)
 
             except Exception as err:
                 self.logger.error(err)
